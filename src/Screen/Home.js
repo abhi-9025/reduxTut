@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
+
+  const contacts=useSelector(state=>state)
   return (
        <div className='container'>
     <div className='row'>
@@ -10,8 +13,35 @@ const Home = () => {
               Add Contact
           </Link>
       </div>
-       <div className='col-md-6 mx-auto'>
-          <h1>Welcome to react redux toolkit</h1>
+       <div className='col-md-10 mx-auto'>
+          <table className='table table-hover'>
+            <thead className='text-white bg-dark text-center'>
+              <tr>
+                <th scope='col'>#</th>
+                <th scope='col'>Name</th>
+                <th scope='col'>Email</th>
+                <th scope='col'>Number</th>
+                <th scope='col'>Action</th>
+              </tr>
+              <tbody>
+                {
+                  contacts.map((contact,id)=>(
+                    <tr>
+                      <td> {id+1}</td>
+                      <td> {contact.name}</td>
+                      <td> {contact.email}</td>
+                      <td> {contact.number}</td>
+                      <td>
+                        <Link to={`/edit/${contact.id}`} className="btn btn-small btn-primary mr-2">Edit</Link>
+                        <button type='button' className="btn btn-small btn-danger">Delete</button>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+
+            </thead>
+          </table>
        </div>
     </div>
   </div>
